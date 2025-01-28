@@ -9,6 +9,6 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        GameObject.Instantiate(_bulllet, _bulletPivot.position, Quaternion.identity);
+        GameObject.Instantiate(_bulllet, _bulletPivot.position, _bulletPivot.rotation);
     }
 }

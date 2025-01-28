@@ -4,11 +4,17 @@ using UnityEngine.UIElements;
 
 public class GetWeapon : MonoBehaviour
 {
+    private Gun _weapon;
+
+    public Gun Weapon
+    {
+        get {return _weapon;}
+    }
     [SerializeField]
     private Transform _gunPivot;
    void OnTriggerEnter(Collider other)
    {
-    if(other.CompareTag("Weapon"))
+    if(other.CompareTag("Weapon") && _weapon == null)
     {
         GrabWeapon(other.transform); 
     }
@@ -21,6 +27,6 @@ public class GetWeapon : MonoBehaviour
     weapon.SetParent(_gunPivot);
     weapon.localPosition = Vector3.zero;
     weapon.localRotation = Quaternion.identity;
-
+    _weapon = weapon.GetComponent<Gun>();
    }
 }
