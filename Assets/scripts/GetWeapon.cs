@@ -1,12 +1,26 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GetWeapon : MonoBehaviour
 {
+    [SerializeField]
+    private Transform _gunPivot;
    void OnTriggerEnter(Collider other)
    {
     if(other.CompareTag("Weapon"))
     {
-        other.gameObject.SetActive(false);  
+        GrabWeapon(other.transform); 
     }
+   }
+
+   private void GrabWeapon(Transform weapon)
+   {
+    weapon.GetComponent<Rotate>().IsRotating = false;
+    weapon.GetComponent<BoxCollider>().enabled = false;
+    weapon.SetParent(_gunPivot);
+    weapon.localPosition = Vector3.zero;
+    weapon.localRotation = Quaternion.identity;
+
    }
 }
