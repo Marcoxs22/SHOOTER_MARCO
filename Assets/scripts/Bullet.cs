@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
         {
             _rigidbody = gameObject.GetComponent<Rigidbody>();
         }
-        _rigidbody.AddForce(Vector3.forward * _bulletSpeed, ForceMode.Impulse);
+        _rigidbody.AddForce(transform.forward * _bulletSpeed, ForceMode.Impulse);
     }
 
     }
