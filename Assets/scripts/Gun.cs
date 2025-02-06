@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 public class Gun : MonoBehaviour
 {
     [SerializeField]
@@ -26,17 +27,33 @@ public class Gun : MonoBehaviour
     
     private Text _bulletsText;
 
+    private GetWeapon _getweapon;
+
+    private void RemoveWeapon()
+    {
+        _getweapon.RemoveWeapon();
+        _getweapon = null;
+    }
 
     public void Shoot()
     {
+        if (_currentBulletsNumber == 0)
+        {
+            if(_totalBulletsNumber == 0)
+            {
+              RemoveWeapon();
+            }
+            return;
+        }
         _weaponAnimator.Play("Shoot", -1, 0f);
         GameObject.Instantiate(_bulllet, _bulletPivot.position, _bulletPivot.rotation);
         _currentBulletsNumber--;
         UpdateBulletsText();
     }
 
-    public void PickUpWeapon()
+    public void PickUpWeapon(GetWeapon getWeapon)
     {
+        _getweapon = getWeapon;
         _totalBulletsNumber = _maxBulletsNumber;
         Reload();
         _weaponAnimator.Play("GetWeapon");
@@ -45,6 +62,11 @@ public class Gun : MonoBehaviour
 
     public void Reload()
     {
+        if(_currentBulletsNumber == _cartridgeBulletsNumber || _totalBulletsNumber == 0)
+        {
+            return;
+        }
+        int bulletsNeeded = _cartridgeBulletsNumber - _currentBulletsNumber;
         if(_totalBulletsNumber >= _cartridgeBulletsNumber)
         {
              _currentBulletsNumber = _cartridgeBulletsNumber;
@@ -54,13 +76,14 @@ public class Gun : MonoBehaviour
         }
          _totalBulletsNumber -= _currentBulletsNumber;
          UpdateBulletsText();
+         _weaponAnimator.Play("Reload");
     }
 
     private void UpdateBulletsText()
     {
         if(_bulletsText == null)
         {
-            _bulletsText = GameObject.Find("BulletText").GetComponent<Text>();
+            _bulletsText = _getweapon.GetComponent<UIController>().BulletText;
         }
         _bulletsText.text = _currentBulletsNumber + "/" + _totalBulletsNumber;
     }
