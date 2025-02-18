@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     private int damage = 1;
     public int Damage
     {
-        get {return damage;}
+        get {return damage;}    
     }
 
 
