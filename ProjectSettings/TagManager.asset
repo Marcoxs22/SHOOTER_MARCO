@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Enemy
   - Key
+  - Cylinder
   layers:
   - Default
   - TransparentFX

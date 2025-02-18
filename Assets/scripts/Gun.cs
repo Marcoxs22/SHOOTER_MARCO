@@ -47,6 +47,7 @@ public class Gun : MonoBehaviour
         }
         SoundManager.instance.Play("Fire");
         _weaponAnimator.Play("Shoot", -1, 0f);
+        _weaponAnimator.Play("Shoot 1", -1, 0f);
         GameObject.Instantiate(_bulllet, _bulletPivot.position, _bulletPivot.rotation);
         _currentBulletsNumber--;
         UpdateBulletsText();
@@ -58,6 +59,7 @@ public class Gun : MonoBehaviour
         _totalBulletsNumber = _maxBulletsNumber;
         Reload();
         _weaponAnimator.Play("GetWeapon");
+        _weaponAnimator.Play("GetWeapon 1");
         UpdateBulletsText();
     }
 
@@ -79,6 +81,7 @@ public class Gun : MonoBehaviour
          _totalBulletsNumber -= _currentBulletsNumber;
          UpdateBulletsText();
          _weaponAnimator.Play("Reload");
+         _weaponAnimator.Play("Reload 1");
     }
 
     private void UpdateBulletsText()

@@ -37,6 +37,12 @@ public class Enemy : MonoBehaviour
             health.TakeDamage(collision.gameObject.GetComponent<Bullet>().Damage);
             Destroy(collision.gameObject);
         }
+
+         if (collision.gameObject.CompareTag("Cylinder"))
+        {
+            health.TakeDamage(collision.gameObject.GetComponent<Cylinder>().Damage);
+            Destroy(collision.gameObject);
+        }
     }
 
     public void Die()
